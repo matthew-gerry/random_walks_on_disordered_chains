@@ -8,31 +8,11 @@ rand_D = D_avg;
 hom_D = D_avg_hom; 
 time = linspace(0, 580, 2901);%longer time
 
-diff_D= abs(rand_D-hom_D);
-convergenceThreshold = 0.009;
+[steady_value, index] = steady_state(rand_D, 0.0001,100);
 
-% Initialize the no_conv flag and a variable for the convergence time
-no_conv = true;
-convergenceTime = NaN;
+disp(strcat("The steady-state value is",num2str(steady_value)));
 
-% Analyze convergence
-for i = 1:10:length(diff_D)
-    if (i+9) <= length(diff_D)
-        subset_D = diff_D(i:i+9);
-        avg_D = mean(subset_D);
-        if avg_D < convergenceThreshold
-            disp(['The series steady state value is ', num2str(avg_D)]);
-            convergenceTime = time(i);
-            disp(['The series converge at time ', num2str(convergenceTime)]);
-            no_conv = false;
-            break;
-        end
-    end
-end
-
-if no_conv
-    disp('The series do not converge');
-end
+convergenceTime = time(index);
 
 % Create a figure
 figure;

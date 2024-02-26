@@ -2,39 +2,17 @@
 % Generate homogeneous chains and the biased random walk
 rng(1145);
 %Set seed = 1145
-[~ ,~ ,~ ,v_av,~,~] = pdf_rand(0.6,0,1.5,0.5,1,161,0.2,120);
-[~, ~, ~, v_av_hom,~,~] = pdf_rand(1,0,1.5*0.6+0.5*0.4,1.5*0.6+0.5*0.4,1,161,0.2,120);
+[~ ,~ ,~ ,v_av,~,~] = pdf_rand(0.5,0.2,1.5,0.5,1,161,0.2,120);
+[~, ~, ~, v_av_hom,~,~] = pdf_rand(1,0.2,1.5*0.5+0.5*0.5,1.5*0.5+0.5*0.5,1,161,0.2,120);
 rand_chain = v_av; 
 hom_chain = v_av_hom; 
 time = linspace(0, 120, 601);
 
-%Analyze convergence
-diff = abs(rand_chain-hom_chain);
-convergenceThreshold = 0.01;
+[steady_value, index] = steady_state(rand_chain, 0.0001,5);
 
-% Initialize the no_conv flag and a variable for the convergence time
-no_conv = true;
-convergenceTime = NaN;
+disp(strcat("The steady-state value is",num2str(steady_value)));
 
-
-for i = 1:10:length(diff)
-    if (i+9) <= length(diff)
-        subset = diff(i:i+9);
-        avg = mean(subset);
-        if avg < convergenceThreshold
-            disp(['The series steady state value is ', num2str(avg)]);
-            convergenceTime = time(i);
-            disp(['The series converge at time', num2str(i)]);
-            no_conv = false;
-            break;
-            
-        end
-    end
-end
-
-if no_conv
-    disp('The series do not converge');
-end
+convergenceTime = time(index);
 
 % Create a figure
 figure;
