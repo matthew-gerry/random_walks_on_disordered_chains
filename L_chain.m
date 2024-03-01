@@ -7,6 +7,18 @@
 
 % Matthew Gerry, March 2024
 
+% Arguments:
+% chain - A bit string corresponding to the chain. Zeros represent sites of
+%         type 'A' and ones, type 'B'.
+% bias  - The bias by which reverse steps are exponentially suppressed.
+% ga_a  - Proportional to the reciprocal of the forward transition rate for
+%         A-type sites.
+% ga_b  - Proportional to the reciprocal of the forward transition rate for
+%         B-type sites.
+% tau   - Additional parameter setting transition rates. All transition 
+%         rates are scaled by tau^2.
+
+
 function L = L_chain(chain,bias,ga_a,ga_b,tau)
 
     % Pre-allocate square matrix whose size is determined by the chain length
