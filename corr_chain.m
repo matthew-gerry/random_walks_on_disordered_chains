@@ -11,8 +11,11 @@
 % N - total length of the chain
 % c - desired nearest-neighbour correlation value
 % epsilon - tolerance for correlation value (will not be possible to get exact)
+% seed - random seed to initialize random number generator
 
-function [chain, c_calculated] = corr_chain(p, N, c, epsilon)
+function [chain, c_calculated] = corr_chain(p, N, c, epsilon, seed)
+
+    rng(seed) % Initialize the random number generator
 
     num_zeros = round(p*N);
 
