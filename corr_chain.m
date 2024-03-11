@@ -7,11 +7,11 @@
 % Matthew Gerry, October 2023
 
 %%% Arguments %%%
-% p - the proportion of chain sites of the first (A) type
-% N - total length of the chain
-% c - desired nearest-neighbour correlation value
+% p       - the proportion of chain sites of the first (A) type
+% N       - total length of the chain
+% c       - desired nearest-neighbour correlation value
 % epsilon - tolerance for correlation value (will not be possible to get exact)
-% seed - random seed to initialize random number generator
+% seed    - random seed to initialize random number generator
 
 function [chain, c_calculated] = corr_chain(p, N, c, epsilon, seed)
 

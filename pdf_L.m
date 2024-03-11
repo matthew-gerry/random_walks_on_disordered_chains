@@ -28,6 +28,8 @@ function [PDF, n_av, v_av, D_av, C3, C4] = pdf_L(L, dt, tmax)
 
     PDF = zeros(numsites,length(time)); % Pre-allocate time-series of prob dist
     
+    % Determine the bias to determine how to best solve the system
+    bias = -log(L(2,1)/L(1,2));
     if bias<=0 % At low bias, diagonalize L to calculate PDF faster
         [V,D] = eig(L);
         for ii=1:length(time)
@@ -44,6 +46,8 @@ function [PDF, n_av, v_av, D_av, C3, C4] = pdf_L(L, dt, tmax)
     % Statistics of n - calculate each for the first four cumulants and
     % scaled cumulants
     dpdt = L*PDF;
+    numsites = size(L,1);
+    sites = -floor(0.5*numsites):floor(0.5*numsites);
     
     % Mean
     n_av = sum(PDF.*repmat(sites',[1,length(time)]));
