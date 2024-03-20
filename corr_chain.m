@@ -38,6 +38,14 @@ function [chain, c_calculated] = corr_chain(p, N, c, epsilon, seed)
         chain(2:2:N) = 1;
     end % Initialization
 
+    % Choose at random whether or not to reverse the direction of the
+    % initialized chain to eliminate symmetries arising from the
+    % initialization
+    flip_flag = randi([0,1]);
+    if flip_flag
+        chain = flip(chain);
+    end
+
     % Calculate the nearest-neighbour correlations
     c_init_matrix = corrcoef(chain(1:N-1),chain(2:N));
     c_current = c_init_matrix(1,2);

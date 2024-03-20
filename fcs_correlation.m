@@ -43,7 +43,7 @@ D = 0.5*sum(dpdt.*(site_tensor.^2),3) - n_av.*v_av;
 % At a few choices of correlation value
 
 figure;
-c_indices = [3,11,19];
+c_indices = [2,11,20];
 
 for ii=1:length(c_indices)
     c = c_list(c_indices(ii));
