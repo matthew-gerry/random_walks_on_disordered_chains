@@ -33,7 +33,8 @@ seed_list = 1:set_size; % List of random seeds to cycle through at each c-value
 tau = 1.0;
 ga_av = 1.0; dga = 1.0;
 ga_a = ga_av + 0.5*dga; ga_b = ga_av - 0.5*dga;
-b = 0.0; % Bias
+b = 0.2; % Bias
+site0 = -100; % Initial site of walker
 
 % Pre-allocate a 3-index tensor whose slices correspond to different c-values
 % Each row in a slice is to be a different chain realization
@@ -58,12 +59,12 @@ for ii=1:length(c_list)
     for jj=1:set_size
         L = L_chain(chains(ii, jj, :), b, ga_a, ga_b, tau);
 
-        PDF_temp = pdf_L(L, dt, tmax);
+        PDF_temp = pdf_L(L, site0, dt, tmax);
         dists(ii, jj, :, :) = PDF_temp;
 
     end % jj
 end % ii
 
 % Save parameters, chains, and distributions to file
-save(strcat("../RWdata_",time_string),"dt","tmax","numsites","p","epsilon", "set_size","cmin","cmax","dc","tau","ga_av","dga","b","chains","dists")
+save(strcat("../RWdata_lowbias_",time_string),"dt","tmax","numsites","p","epsilon", "set_size","cmin","cmax","dc","tau","ga_av","dga","b","site0","chains","dists")
 

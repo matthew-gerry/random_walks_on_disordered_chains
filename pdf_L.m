@@ -12,16 +12,19 @@
 
 % Arguments:
 % L     - The rate matrix characterizing the random walk
+% site0 - The position of the walker at the start of the simulation
 % dt    - Time-step
 % tmax  - The length of time for the simulation, which begins at time zero
 
-function PDF = pdf_L(L, dt, tmax)
+function PDF = pdf_L(L, site0, dt, tmax)
 
     % Define a variable for the length of the chain
     numsites = size(L,1);
 
     % Initial state (1 at central site)
-    p0 = zeros([numsites,1]); p0(floor((numsites+1)/2)) = 1;
+%     p0 = zeros([numsites,1]); p0(floor((numsites+1)/2)) = 1;
+    index0 = ceil(numsites/2) + site0;
+    p0 = zeros([numsites,1]); p0(index0) = 1;
 
     % Solve master equation numerically
     time = 0:dt:tmax;

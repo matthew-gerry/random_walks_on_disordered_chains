@@ -8,7 +8,7 @@
 
 % Matthew Gerry, March 2024
 
-load("../RWdata_24-03-20_1319.mat") % Load the data in 
+load("../RWdata_lowbias_24-03-25_1122.mat") % Load the data in 
 
 % Re-define some of the parameter-dependent variables
 time = 0:dt:tmax; % Time
@@ -28,7 +28,7 @@ for ii=1:length(c_list)
     end % jj
 end % ii
 
-% Calculate statistics
+%% Calculate statistics
 site_tensor = repmat(reshape(site_list,[1,1,numsites,1]),[length(c_list),set_size,1,length(time)]);
 
 % Mean
@@ -43,7 +43,7 @@ D = 0.5*sum(dpdt.*(site_tensor.^2),3) - n_av.*v_av;
 % At a few choices of correlation value
 
 figure;
-c_indices = [2,11,20];
+c_indices = [1,2,6,11];
 
 for ii=1:length(c_indices)
     c = c_list(c_indices(ii));
@@ -62,8 +62,8 @@ end
 %% Animate probability distribution over time
 figure;
 for kk=1:length(time)
-    bar(site_list, reshape(dists(11,3,:,kk),[1,numsites]))
-    ylim([0,0.1])
+    bar(site_list, reshape(dists(3,5,:,kk),[1,numsites]))
+    ylim([0,0.04])
     drawnow
-    pause(0.06)
+    pause(0.05)
 end
