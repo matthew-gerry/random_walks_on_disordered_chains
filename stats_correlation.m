@@ -33,32 +33,35 @@ site_tensor = repmat(reshape(site_list,[1,1,numsites,1]),[length(c_list),set_siz
 
 % Mean
 n_av = sum(dists.*site_tensor,3);
-v_av = sum(dpdt.*site_tensor,3);
+C1 = sum(dpdt.*site_tensor,3);
 
 % Diffusion coefficient
 S = sum(dists.*(site_tensor.^2),3) - n_av.^2;
-D = 0.5*sum(dpdt.*(site_tensor.^2),3) - n_av.*v_av;
-D = D(:,:,:,1:end-1); % Truncate by just one for ease of plotting
+C2 = sum(dpdt.*(site_tensor.^2),3) - 2*n_av.*C1;
 
-% Third and fourth cumulants (numerical differentiation - need to do better)
+% Third and fourth cumulants
+% Create repitions of the above results with the appropriate shapes for ease of calculations
 n_av_tensor = repmat(n_av,[1, 1, numsites, 1]);
-skw = sum(dists.*(site_tensor-n_av_tensor).^3, 3);
-C3 = diff(skw,1,4)/dt; % Scaled skewness
+C1_tensor = repmat(C1,[1, 1, numsites, 1]);
+C2_tensor = repmat(C2,[1, 1, numsites, 1]);
 
-krt = sum(dists.*(site_tensor-n_av_tensor).^3, 3) - 3*S.^2;
-C4 = diff(krt,1,4)/dt; % Scaled kurtosis
+% Skewness
+C3 = sum(dpdt.*(site_tensor-n_av_tensor).^3, 3) - 3*sum(dists.*C1_tensor.*(site_tensor-n_av_tensor).^2, 3);
+
+% Kurtosis
+C4 = sum(dpdt.*(site_tensor-n_av_tensor).^4, 3) - 4*sum(dists.*C1_tensor.*(site_tensor-n_av_tensor).^3, 3) - 6*sum(dists.*C2_tensor.*(site_tensor-n_av_tensor).^2, 3);
 
 % Plot diffusion coefficient as a function of time for many realizations of the same parameters
 % At a few choices of correlation value
 
 figure;
-c_indices = [1,11,21];
+c_indices = [1,6,11];
 
 for ii=1:length(c_indices)
     c = c_list(c_indices(ii));
     subplot(1, 3,ii); hold on; box on
     for jj=1:set_size
-        plot(time(1:end-1), reshape(C3(c_indices(ii),jj,1,:),[1,length(time)-1]))
+        plot(time, reshape(C4(c_indices(ii),jj,1,:),[1,length(time)]))
     end
     xlim([0,time(end)])
     xlabel("$t$",interpreter="latex")
@@ -71,7 +74,7 @@ end
 %% Animate probability distribution over time
 figure;
 for kk=1:length(time)
-    bar(site_list, reshape(dists(3,5,:,kk),[1,numsites]))
+    bar(site_list, reshape(dists(11,1,:,kk),[1,numsites]))
     ylim([0,0.04])
     drawnow
     pause(0.05)
