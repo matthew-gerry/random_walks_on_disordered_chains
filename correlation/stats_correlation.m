@@ -1,4 +1,4 @@
-% fcs_correlation.m
+% stats_correlation.m
 
 % Carry out full counting statistics for random walks on disordered chains
 % with varying nearest-neighbour correlation values. Import data generated
@@ -55,17 +55,17 @@ C4 = sum(dpdt.*(site_tensor-n_av_tensor).^4, 3) - 4*sum(dists.*C1_tensor.*(site_
 % At a few choices of correlation value
 
 figure;
-c_indices = [1,6,11];
+c_indices = [1,3,6];
 
 for ii=1:length(c_indices)
     c = c_list(c_indices(ii));
     subplot(1, 3,ii); hold on; box on
     for jj=1:set_size
-        plot(time, reshape(C4(c_indices(ii),jj,1,:),[1,length(time)]))
+        plot(time, reshape(C2(c_indices(ii),jj,1,:),[1,length(time)]))
     end
     xlim([0,time(end)])
     xlabel("$t$",interpreter="latex")
-    ylabel("$D$",interpreter="latex")
+%     ylabel("$D$",interpreter="latex")
     title(strcat("$c=",num2str(c),"$"),interpreter="latex")
     set(gca, fontsize=14)
     hold off

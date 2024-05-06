@@ -33,18 +33,18 @@ function PDF = pdf_L(L, site0, dt, tmax)
     
     % Determine the bias to determine how to best solve the system
     bias = -log(L(2,1)/L(1,2));
-    if bias<=0 % At low bias, diagonalize L to calculate PDF faster
-        [V,D] = eig(L);
-        for ii=1:length(time)
-            t = time(ii);
-            PDF(:,ii) = real(V*expm(D*t)*(V\p0)); % Exponential of L*t acting on p0
-        end
-    else % Except don't do this at high bias - leads to strange numerical effects since L is near singular
+%     if bias<0 % At low bias, diagonalize L to calculate PDF faster
+%         [V,D] = eig(L);
+%         for ii=1:length(time)
+%             t = time(ii);
+%             PDF(:,ii) = real(V*expm(D*t)*(V\p0)); % Exponential of L*t acting on p0
+%         end
+%     else % Except don't do this at high bias - leads to strange numerical effects since L is near singular
         for ii=1:length(time)
             t = time(ii);
             PDF(:,ii) = expm(L*t)*p0; % Exponential of L*t acting on p0
         end
-    end
+%     end
 
     % Statistics of n - calculate each for the first four cumulants and
 %     % scaled cumulants
