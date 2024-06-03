@@ -1,4 +1,4 @@
-function [PDF, sites, n_av, v_av, D_av,chain] = pdf_rand(p,bias,ga_a,ga_b,tau,numsites,dt,tmax)
+function [PDF, sites, n_av, v_av, D_av,chain,C3,C4] = pdf_rand(p,bias,ga_a,ga_b,tau,numsites,dt,tmax)
 
     if rem(numsites,2)==0
         Error("For symmetry, please choose an odd value for the argument numsites")
@@ -40,12 +40,12 @@ function [PDF, sites, n_av, v_av, D_av,chain] = pdf_rand(p,bias,ga_a,ga_b,tau,nu
     S = sum(PDF.*(sites_grid-n_av_grid).^2);
     D_av = 0.5*(sum(dpdt.*repmat((sites.^2)',[1,length(time)])) - 2*n_av.*v_av);
 
-    % Skewness   
-    %skw = sum(PDF.*(sites_grid-n_av_grid).^3);
-    %C3 = skw./time; % Scaled skewness
+    %Skewness   
+    skw = sum(PDF.*(sites_grid-n_av_grid).^3);
+    C3 = skw./time; % Scaled skewness
 
-    % Kurtosis
-    %krt = sum(PDF.*(sites_grid-n_av_grid).^4) - 3*S.^2;
-    %C4 = krt./time; % Scaled kurtosis
+    %urtosis
+    krt = sum(PDF.*(sites_grid-n_av_grid).^4) - 3*S.^2;
+    C4 = krt./time; % Scaled kurtosis
 
 end % function

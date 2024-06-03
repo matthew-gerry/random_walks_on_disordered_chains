@@ -2,8 +2,8 @@
 % Generate homogeneous chains and the biased random walk
 rng(1145);
 %Set seed = 1145
-[~ ,~ ,~ ,v_av,~,~] = pdf_rand(0.5,0.2,1.5,0.5,1,161,0.2,120);
-[~, ~, ~, v_av_hom,~,~] = pdf_rand(1,0.2,1.5*0.5+0.5*0.5,1.5*0.5+0.5*0.5,1,161,0.2,120);
+[~ ,~ ,~ ,v_av,~,~] = pdf_rand(0.6,0.2,1.5,0.5,1,161,0.2,120);
+[~, ~, ~, v_av_hom,~,~] = pdf_rand(1,0.2,1.5*0.4+0.5*0.6,1.5*0.4+0.5*0.6,1,161,0.2,120);
 rand_chain = v_av; 
 hom_chain = v_av_hom; 
 time = linspace(0, 120, 601);

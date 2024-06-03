@@ -7,12 +7,15 @@
 % Matthew Gerry, October 2023
 
 %%% Arguments %%%
-% p - the proportion of chain sites of the first (A) type
-% N - total length of the chain
-% c - desired nearest-neighbour correlation value
+% p       - the proportion of chain sites of the first (A) type
+% N       - total length of the chain
+% c       - desired nearest-neighbour correlation value
 % epsilon - tolerance for correlation value (will not be possible to get exact)
+% seed    - random seed to initialize random number generator
 
-function [chain, c_calculated] = corr_chain(p, N, c, epsilon)
+function [chain, c_calculated] = corr_chain(p, N, c, epsilon, seed)
+
+    rng(seed) % Initialize the random number generator
 
     num_zeros = round(p*N);
 
@@ -34,6 +37,14 @@ function [chain, c_calculated] = corr_chain(p, N, c, epsilon)
         chain = zeros(1,N);
         chain(2:2:N) = 1;
     end % Initialization
+
+    % Choose at random whether or not to flip every bit in the
+    % initialized chain to eliminate unwanted symmetries arising from the
+    % initialization
+    flip_flag = randi([0,1]);
+    if flip_flag
+        chain = 1 - chain;
+    end
 
     % Calculate the nearest-neighbour correlations
     c_init_matrix = corrcoef(chain(1:N-1),chain(2:N));

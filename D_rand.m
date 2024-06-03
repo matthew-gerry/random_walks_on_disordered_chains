@@ -2,17 +2,11 @@
 % Generate homogeneous chains and the biased random walk
 %Set seed = 1145
 rng(1145);
-[~ ,~ ,~ ,~,D_avg,~] = pdf_rand(0.5,0,1.5,0.5,1,401,0.2,580);
-[~, ~, ~, ~,D_avg_hom,~] = pdf_rand(1,0,1,1,1,401,0.2,580);
+[~ ,~ ,~ ,~,D_avg,~,~,~] = pdf_rand(0.6,0,1.5,0.5,1,401,0.2,120);
+[~ ,~ ,~ ,~,D_avg_hom,~,~,~] = pdf_rand(1,0,1.5*0.4+0.5*0.6,1.5*0.4+0.5*0.6,1,401,0.2,120);
 rand_D = D_avg; 
 hom_D = D_avg_hom; 
-time = linspace(0, 580, 2901);%longer time
-
-[steady_value, index] = steady_state(rand_D, 0.0001,100);
-
-disp(strcat("The steady-state value is",num2str(steady_value)));
-
-convergenceTime = time(index);
+time = 0:0.2:120;%longer time
 
 % Create a figure
 figure;
@@ -24,12 +18,6 @@ hold on; % Hold the current plot
 % Plot the Homogeneous Chain
 plot(time, hom_D(:), 'r', 'DisplayName', 'Homogeneous Chain');
 
-if ~isnan(convergenceTime)
-    hold on; 
-    yLimits = get(gca, 'ylim');
-    line([convergenceTime convergenceTime], yLimits, 'Color', 'k', 'LineStyle', '--', 'LineWidth', 2, 'DisplayName', 'Convergence Point');
-    hold off;
-end
 
 xlabel('Time');
 ylabel('Diffusion Coefficient');
