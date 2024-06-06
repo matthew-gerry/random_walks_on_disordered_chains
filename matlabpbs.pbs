@@ -1,0 +1,27 @@
+#!/bin/bash
+#PBS -l nodes=1:ppn=20
+#PBS -j oe
+#PBS -o pbs.out
+#PBS -N redf_xz
+#PBS -q shemesh
+#PBS -M jakub.garwola@mail.utoronto.ca
+#PBS -m abe
+
+module purge matlab
+module load matlab/R2020a_segal
+
+# change to working directory
+cd $PBS_O_WORKDIR
+
+# setup environment variables
+
+export MCRROOT="/usr/localnfs/Applications/Math/MATLAB/r2020a"
+export LD_LIBRARY_PATH=.:${MCRROOT}/runtime/glnxa64:${MCRROOT}/bin/glnxa64:${MCRROOT}/sys/os/glnxa64:${MCRROOT}/sys/opengl/lib/glnxa64
+
+# Run the job
+
+matlab_mcc -N -m redf_RC.m -o run_redf_xz
+
+#./run_redf_xz
+
+matlab -nodisplay -nosplash -r redf_RC
