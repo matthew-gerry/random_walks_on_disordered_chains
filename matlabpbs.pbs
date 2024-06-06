@@ -2,13 +2,13 @@
 #PBS -l nodes=1:ppn=20
 #PBS -j oe
 #PBS -o pbs.out
-#PBS -N redf_xz
+#PBS -N data_p_dga
 #PBS -q shemesh
-#PBS -M jakub.garwola@mail.utoronto.ca
+#PBS -M matthew.gerry@mail.utoronto.ca
 #PBS -m abe
 
 module purge matlab
-module load matlab/R2020a_segal
+module load matlab/R2023a_segal
 
 # change to working directory
 cd $PBS_O_WORKDIR
@@ -20,8 +20,8 @@ export LD_LIBRARY_PATH=.:${MCRROOT}/runtime/glnxa64:${MCRROOT}/bin/glnxa64:${MCR
 
 # Run the job
 
-matlab_mcc -N -m redf_RC.m -o run_redf_xz
+# matlab_mcc -N -m data_p_dga.m -o data_p_dga
 
-#./run_redf_xz
+# ./data_p_dga
 
-matlab -nodisplay -nosplash -r redf_RC
+matlab -nodisplay -nosplash -nodesktop -r data_p_dga
