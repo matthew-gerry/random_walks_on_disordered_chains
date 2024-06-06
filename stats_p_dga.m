@@ -7,7 +7,7 @@
 
 % Matthew Gerry, May 2024
 
-load("../RWdata_nobias_24-05-06_1555.mat") % Load the data in 
+load("../RWdata_nobias_24-06-06_1201.mat") % Load the data in 
 
 % Re-define some of the parameter-dependent variables
 time = 0:dt:tmax; % Time

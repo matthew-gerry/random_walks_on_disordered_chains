@@ -11,8 +11,13 @@
 
 % Matthew Gerry, May 2024
 
+% Load parameter values into a table from the text file parameters.txt
+param = readtable("parameters.txt", Delimiter=' ');
+% We will still assign each parameter its own variable to save in the
+% output .mat file
+
 % Set the bias regime
-bias_string = "nobias";
+bias_string = string(param.bias_string);
 
 % Current date and time for filenames
 time_string = string(datetime("now",Format="yy-MM-dd_HHmm"));
@@ -25,27 +30,26 @@ elseif bias_string=="lowbias"
 end % condition
 
 % Set time values for dynamics
-dt = 25.0;
-tmax = 100;
+dt = param.dt;
+tmax = param.tmax;
 time = 0:dt:tmax;
 
 % Set parameter values required for generating a set of chains
-numsites = 361; % Chain length
+numsites = param.numsites; % Chain length
 site_list = -floor(numsites/2):floor(numsites/2); % Site labels
-epsilon = 0.05; % Tolerance for NN-correlation values
-set_size = 5; % Number of realizations at each set of param values
+set_size = param.set_size; % Number of realizations at each set of param values
 
 % Set parameter values required for generating rate matrices
-tau = 1.0;
-ga_av = 1.0;
-site0 = 0; % Initial site of walker
+tau = param.tau;
+ga_av = param.ga_av;
+site0 = param.site0; % Initial site of walker
 
 % Parameters to be varied
 % Range of p values
-dp = 0.1; p_list = 0:0.1:1;
+dp = param.dp; p_list = 0:0.1:1;
 
 % Range of d_ga values
-ddga = 0.2; % Amount by which to step between delta gamma values
+ddga = param.ddga; % Amount by which to step between delta gamma values
 dga_list = 0:ddga:2*ga_av;
  
 % List of random seeds to cycle through at each c-value
@@ -91,4 +95,4 @@ end % ii
 
 
 % Save parameters, chains, and distributions to file
-save(filename,"dt","tmax","numsites","epsilon", "set_size","dp","tau","ga_av","ddga","b","site0","chains","dists")
+save(filename,"dt","tmax","numsites","set_size","dp","tau","ga_av","ddga","b","site0","chains","dists")
