@@ -70,10 +70,10 @@ function [C1, C2, C3, C4] = stats_p_dga(filename)
     % Finally, eliminate the fourth index from each of the output arrays,
     % which we have contracted over when we summed over all sites in
     % calculating the cumulants
-    C1 = reshape(C1,[length(p_list), length(dga_list), set_size, length(time)]);
-    C2 = reshape(C2,[length(p_list), length(dga_list), set_size, length(time)]);
-    C3 = reshape(C3,[length(p_list), length(dga_list), set_size, length(time)]);
-    C4 = reshape(C4,[length(p_list), length(dga_list), set_size, length(time)]);
+    C1 = reshape(C1,[length(dga_list), length(p_list), set_size, length(time)]);
+    C2 = reshape(C2,[length(dga_list), length(p_list), set_size, length(time)]);
+    C3 = reshape(C3,[length(dga_list), length(p_list), set_size, length(time)]);
+    C4 = reshape(C4,[length(dga_list), length(p_list), set_size, length(time)]);
 
 end % function
 

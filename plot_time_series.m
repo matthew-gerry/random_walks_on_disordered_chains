@@ -15,24 +15,45 @@ load(strcat("../", filename, ".mat"), "dt","tmax","numsites","set_size","dp","ta
 % Re-define some of the parameter-dependent variables
 time = 0:dt:tmax; % Time
 site_list = -floor(numsites/2):floor(numsites/2); % List of site indices
-p_list = 0:dp:1; % List of p values
 dga_list = 0:ddga:2*ga_av; % List of dga values
+p_list = 0:dp:1; % List of p values
 
+%%
 % Plot C2 as a function of time for many realizations of the same parameters
 % At a few choices of p value, specific choice of dga
 figure;
-p_indices = [2,6,8];
+p_indices = [6,7,9];
 
 for ii=1:length(p_indices)
     p = p_list(p_indices(ii));
     subplot(1, length(p_indices), ii); hold on; box on
     for jj=1:set_size
-        plot(time, reshape(C2(10, p_indices(ii),jj,:),[1,length(time)]))
+        plot(time, reshape(C2(10, p_indices(ii), jj, :),[1,length(time)]))
     end
     xlim([0,time(end)])
     xlabel("$t$",interpreter="latex")
     ylabel("$C_2$",interpreter="latex")
     title(strcat("$p=",num2str(p),"$"),interpreter="latex")
+    set(gca, fontsize=14)
+    hold off
+end
+
+%%
+% Plot C2 as a function of time for many realizations of the same parameters
+% At a few choices of dga value, specific choice of p
+figure;
+dga_indices = [2,6,9];
+
+for ii=1:length(dga_indices)
+    dga = dga_list(dga_indices(ii));
+    subplot(1, length(dga_indices), ii); hold on; box on
+    for jj=1:set_size
+        plot(time, reshape(C2(dga_indices(ii), 6, jj, :),[1,length(time)]))
+    end
+    xlim([0,time(end)])
+    xlabel("$t$",interpreter="latex")
+    ylabel("$C_2$",interpreter="latex")
+    title(strcat("$\Delta\gamma=",num2str(dga),"$"),interpreter="latex")
     set(gca, fontsize=14)
     hold off
 end
