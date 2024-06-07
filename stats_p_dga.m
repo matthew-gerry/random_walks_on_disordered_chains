@@ -7,7 +7,7 @@
 
 % Matthew Gerry, May 2024
 
-load("../RWdata_nobias_24-06-06_1201.mat") % Load the data in 
+load("../RWdata_nobias_24-06-06_1500.mat") % Load the data in 
 
 % Re-define some of the parameter-dependent variables
 time = 0:dt:tmax; % Time
@@ -62,13 +62,13 @@ C4 = sum(dpdt.*(site_tensor-n_av_tensor).^4, 4) - 4*sum(dists.*C1_tensor.*(site_
 % At a few choices of p value, specific choice of dga
 
 figure;
-p_indices = [2,6,10];
+p_indices = [2,6,8];
 
 for ii=1:length(p_indices)
     p = p_list(p_indices(ii));
     subplot(1, length(p_indices), ii); hold on; box on
     for jj=1:set_size
-        plot(time, reshape(C2(6, p_indices(ii),jj,1,:),[1,length(time)]))
+        plot(time, reshape(C2(10, p_indices(ii),jj,1,:),[1,length(time)]))
     end
     xlim([0,time(end)])
     xlabel("$t$",interpreter="latex")
