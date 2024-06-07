@@ -1,2 +1,0 @@
-bias_string dt tmax numsites set_size tau ga_av site0 dp ddga
-nobias 10 1000 401 20 1.0 1.0 0.0 0.1 0.2
