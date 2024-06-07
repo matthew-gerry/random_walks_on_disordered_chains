@@ -25,7 +25,6 @@ p_list = 0:dp:1; % List of p values
 ga_star = P.*(ga_av + 0.5*DGA) + (1 - P).*(ga_av - 0.5*DGA);
 C2_star = 2*tau./ga_star;
 
-
 epsilon = 0.05; % Tolerance in steady-state values
 window_size = 10; % Number of time steps considered minimum for steady state
 
@@ -63,7 +62,9 @@ dga_indices = [2, 6, 9];
 
 figure(1)
 for ii=1:length(dga_indices)
-    subplot(length(dga_indices), 1, ii)
+    subplot(length(dga_indices), 1, ii); hold on
+    box on
+
     dga_index = dga_indices(ii);
 
     errorbar(p_list(1:end-1), C2_ss_mean(ii, :), C2_ss_stddev(ii, :), '.')
@@ -73,7 +74,7 @@ for ii=1:length(dga_indices)
     ylabel("$\mathcal{C}_2$", Interpreter="latex")
 
     set(gca, fontsize=14)
-
+    hold off
 end % ii
 
 
@@ -82,7 +83,9 @@ p_indices = [2, 6, 9];
 
 figure(2)
 for jj=1:length(p_indices)
-    subplot(length(p_indices), 1, jj)
+    subplot(length(p_indices), 1, jj); hold on
+    box on
+
     p_index = p_indices(jj);
 
     errorbar(dga_list(1:end-1), C2_ss_mean(:, jj), C2_ss_stddev(:, jj), '.')
@@ -92,7 +95,7 @@ for jj=1:length(p_indices)
     ylabel("$\mathcal{C}_2$", Interpreter="latex")
 
     set(gca, fontsize=14)
-
+    hold off
 end % jj
 
 
