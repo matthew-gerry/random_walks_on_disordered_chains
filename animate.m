@@ -6,7 +6,8 @@
 
 % Matthew Gerry, June 2024
 
-load("../RWdata_nobias_24-06-06_1500.mat") % Load the data in 
+filename = "RWdata_lowbias_24-06-07_1147";
+load(strcat("../", filename, ".mat")) % Load the data in 
 
 % Re-define some of the parameter-dependent variables
 time = 0:dt:tmax; % Time

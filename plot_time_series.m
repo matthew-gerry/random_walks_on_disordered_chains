@@ -6,7 +6,7 @@
 % Matthew Gerry, June 2024
 
 % Specify name of data file, calculate cumulants
-filename = "RWdata_nobias_24-06-06_1500";
+filename = "RWdata_lowbias_24-06-07_1147";
 [C1,C2,C3,C4] = stats_p_dga(filename);
 
 % Load parameter values from data file
@@ -19,7 +19,7 @@ dga_list = 0:ddga:2*ga_av; % List of dga values
 p_list = 0:dp:1; % List of p values
 
 %%
-% Plot C2 as a function of time for many realizations of the same parameters
+% Plot cumulant as a function of time for many realizations of the same parameters
 % At a few choices of p value, specific choice of dga
 figure;
 p_indices = [2,6,9];
@@ -28,7 +28,7 @@ for ii=1:length(p_indices)
     p = p_list(p_indices(ii));
     subplot(1, length(p_indices), ii); hold on; box on
     for jj=1:set_size
-        plot(time, reshape(C2(2, p_indices(ii), jj, :),[1,length(time)]))
+        plot(time, reshape(C1(2, p_indices(ii), jj, :),[1,length(time)]))
     end
     xlim([0,time(end)])
     xlabel("$t$",interpreter="latex")
@@ -39,7 +39,7 @@ for ii=1:length(p_indices)
 end
 
 %%
-% Plot C2 as a function of time for many realizations of the same parameters
+% Plot cumulant as a function of time for many realizations of the same parameters
 % At a few choices of dga value, specific choice of p
 figure;
 dga_indices = [2,6,9];
@@ -48,7 +48,7 @@ for ii=1:length(dga_indices)
     dga = dga_list(dga_indices(ii));
     subplot(1, length(dga_indices), ii); hold on; box on
     for jj=1:set_size
-        plot(time, reshape(C2(dga_indices(ii), 6, jj, :),[1,length(time)]))
+        plot(time, reshape(C1(dga_indices(ii), 6, jj, :),[1,length(time)]))
     end
     xlim([0,time(end)])
     xlabel("$t$",interpreter="latex")
