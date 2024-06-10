@@ -67,8 +67,8 @@ for ii=1:length(dga_indices)
 
     dga_index = dga_indices(ii);
 
-    errorbar(p_list(1:end-1), C2_ss_mean(dga_index, :), C2_ss_stddev(dga_index, :), '.')
-    plot(p_list(1:end-1), C2_star(dga_index, :), '--k')
+    errorbar(p_list, C2_ss_mean(dga_index, :), C2_ss_stddev(dga_index, :), '.')
+    plot(p_list, C2_star(dga_index, :), '--k')
 
     title(strcat("$\Delta\gamma=",num2str(dga_list(dga_index)),"$"), Interpreter="latex")
     xlabel("$p$", Interpreter="latex")
