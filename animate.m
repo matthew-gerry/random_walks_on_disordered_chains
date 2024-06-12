@@ -7,6 +7,7 @@
 % Matthew Gerry, June 2024
 
 filename = "RWdata_lowbias_24-06-07_1147";
+% filename = "RWdata_nobias_24-06-07_1547";
 load(strcat("../", filename, ".mat")) % Load the data in 
 
 % Re-define some of the parameter-dependent variables
