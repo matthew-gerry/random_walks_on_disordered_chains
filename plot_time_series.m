@@ -6,7 +6,8 @@
 % Matthew Gerry, June 2024
 
 % Specify name of data file, calculate cumulants
-filename = "RWdata_lowbias_24-06-07_1147";
+% filename = "RWdata_lowbias_24-06-07_1147";
+filename = "RWdata_nobias_24-06-07_1547";
 [C1,C2,C3,C4] = stats_p_dga(filename);
 
 % Load parameter values from data file
@@ -28,7 +29,7 @@ for ii=1:length(p_indices)
     p = p_list(p_indices(ii));
     subplot(1, length(p_indices), ii); hold on; box on
     for jj=1:set_size
-        plot(time, reshape(C1(2, p_indices(ii), jj, :),[1,length(time)]))
+        plot(time, reshape(C2(2, p_indices(ii), jj, :),[1,length(time)]))
     end
     xlim([0,time(end)])
     xlabel("$t$",interpreter="latex")
@@ -48,12 +49,20 @@ for ii=1:length(dga_indices)
     dga = dga_list(dga_indices(ii));
     subplot(1, length(dga_indices), ii); hold on; box on
     for jj=1:set_size
-        plot(time, reshape(C1(dga_indices(ii), 6, jj, :),[1,length(time)]))
+        plot(time, reshape(C2(dga_indices(ii), 6, jj, :),[1,length(time)]))
     end
     xlim([0,time(end)])
+    ylim([0, 4])
     xlabel("$t$",interpreter="latex")
     ylabel("$C_2$",interpreter="latex")
     title(strcat("$\Delta\gamma=",num2str(dga),"$"),interpreter="latex")
     set(gca, fontsize=14)
     hold off
 end
+
+%% Timescale analysis, just choose p=0.5, dga=1
+
+figure; hold on; box on
+semilogx(time, reshape(C2(6, 6, 1, :),[1,length(time)]))
+
+hold off
