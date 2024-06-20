@@ -40,7 +40,7 @@ for ii=1:length(dga_list)
     end % jj
 end % ii
 
-% Slice off last row and column since steady states mostly not found for these
+% Slice off last row since steady states mostly not found for these
 C2_ss = C2_ss(1:end-1, :, :);
 C2_star = C2_star(1:end-1, :, :);
 
