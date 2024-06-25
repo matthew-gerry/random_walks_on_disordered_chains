@@ -7,7 +7,8 @@
 
 % Specify name of data file, calculate cumulants
 % filename = "RWdata_lowbias_24-06-07_1147";
-filename = "RWdata_nobias_24-06-07_1547";
+% filename = "RWdata_nobias_24-06-07_1547";
+filename = "RWdata_nobias_24-06-18_1524";
 [C1,C2,C3,C4] = stats_p_dga(filename);
 
 % Load parameter values from data file
@@ -64,5 +65,6 @@ end
 
 figure; hold on; box on
 semilogx(time, reshape(C2(6, 6, 1, :),[1,length(time)]))
+set(gca, xscale='log')
 
 hold off

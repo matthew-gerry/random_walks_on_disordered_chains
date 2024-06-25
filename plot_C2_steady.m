@@ -8,7 +8,9 @@
 % Matthew Gerry, June 2024
 
 % Specify name of data file, calculate C2
-filename = "RWdata_nobias_24-06-07_1547";
+% filename = "RWdata_nobias_24-06-07_1547";
+filename = "RWdata_nobias_24-06-18_1524";
+
 [~,C2,~,~] = stats_p_dga(filename);
 
 % Load parameter values from data file

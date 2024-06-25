@@ -8,8 +8,8 @@
 
 
 % Specify name of data file, calculate C2
-% filename = "RWdata_nobias_24-06-07_1547";
-filename = "RWdata_lowbias_24-06-07_1147";
+filename = "RWdata_nobias_24-06-07_1547";
+% filename = "RWdata_lowbias_24-06-07_1147";
 [C1,C2,~,~] = stats_p_dga(filename);
 
 % Load parameter values from data file
@@ -34,9 +34,9 @@ for jj=1:1
 
     p_eff = dist*chain;
 
-    C1_eff = (1-exp(-b))./(p_eff*(ga_av + 0.5*dga) + (1-p_eff)*(ga_av - 0.5*dga));
+    C2_eff = (1+exp(-b))./(p_eff*(ga_av + 0.5*dga) + (1-p_eff)*(ga_av - 0.5*dga));
 
-    plot(time, C1_eff)
-    plot(time, reshape(C1(dga_index, p_index, jj, :),[1,length(time)]), 'x')
+    plot(time, C2_eff)
+    plot(time, reshape(C2(dga_index, p_index, jj, :),[1,length(time)]), 'x')
 end
 hold off
