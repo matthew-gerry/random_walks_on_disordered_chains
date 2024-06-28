@@ -7,8 +7,8 @@
 
 % Specify name of data file, calculate cumulants
 % filename = "RWdata_lowbias_24-06-07_1147";
-% filename = "RWdata_nobias_24-06-07_1547";
-filename = "RWdata_nobias_24-06-18_1524";
+filename = "RWdata_nobias_24-06-07_1547";
+% filename = "RWdata_nobias_24-06-18_1524";
 [C1,C2,C3,C4] = stats_p_dga(filename);
 
 % Load parameter values from data file
@@ -39,6 +39,9 @@ for ii=1:length(p_indices)
     set(gca, fontsize=14)
     hold off
 end
+
+% It appears that (at least for p=0.5), chain 12 levels off at a relatively low value
+% of C2 and chain 18 levels off at a relatively high value
 
 %%
 % Plot cumulant as a function of time for many realizations of the same parameters
